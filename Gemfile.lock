@@ -1,14 +1,14 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    rack (3.0.10)
+    webrick (1.8.1)
 
 PLATFORMS
   arm64-darwin-22
   ruby
 
 DEPENDENCIES
-  rack (~> 3.0, >= 3.0.10)
+  webrick (~> 1.8, >= 1.8.1)
 
 RUBY VERSION
    ruby 3.3.0p0

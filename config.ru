@@ -1,28 +1,10 @@
 require 'webrick'
 
-app = Rack::Builder.new do
-  map '/' do
-    use Rack::Static, urls: ['/'], root: 'public', index: 'index.html.erb'
-    run lambda { |_env|
-      [
-        200,
-        {
-          'Content-Type': 'text/html',
-          'Cache-Control': 'no-cache'
-        },
-        File.open('public/index.html.erb', File::RDONLY)
-      ]
-    }
-  end
+server = WEBrick::HTTPServer.new(Port: 3000)
+
+server.mount_proc '/' do |req, res|
+  res.body = "Hello! Rack Practice"
 end
 
-webrick_options = {
-  Port: 3000,
-  DocumentRoot: './public'
-}
-
-Signal.trap 'INT' do
-  Rack::Handler::WEBrick.shutdown
-end
-
-Rack::Handler::WEBrick.run app, Port: 3000, DocumentRoot: './public'
+trap 'INT' do server.shutdown end
+server.start
